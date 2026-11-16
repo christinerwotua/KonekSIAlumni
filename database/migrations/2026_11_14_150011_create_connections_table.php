@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('mahasiswa_id')->constrained('users');
             $table->foreignId('alumni_id')->constrained('users');
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->unique(['mahasiswa_id', 'alumni_id']);
             $table->timestamps();
         });

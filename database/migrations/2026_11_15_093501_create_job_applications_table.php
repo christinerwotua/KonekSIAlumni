@@ -12,6 +12,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('job_referral_id')->constrained('job_referrals');
             $table->foreignId('mahasiswa_id')->constrained('users');
+            $table->foreignId('cv_id')->nullable()->constrained('talent_documents');
+            $table->text('message')->nullable();
+            $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->unique(['job_referral_id', 'mahasiswa_id']);
             $table->timestamps();
         });

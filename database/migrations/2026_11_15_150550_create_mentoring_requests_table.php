@@ -6,26 +6,23 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
     public function up(): void
     {
         Schema::create('mentoring_requests', function (Blueprint $table) {
+            $table->id();
+            $table->foreignId('mentor_id')->constrained('mentor_profiles');
             $table->foreignId('mahasiswa_id')->constrained('users');
-            $table->foreignId('alumni_id')->constrained('users');
+            $table->foreignId('cv_id')->nullable()->constrained('talent_documents');
             $table->string('topic');
-            $table->text('message');
+            $table->text('goal');
+            $table->dateTime('proposed_schedule')->nullable();
             $table->enum('status', ['pending', 'accepted', 'rejected'])->default('pending');
             $table->text('response_message')->nullable();
             $table->timestamp('responded_at')->nullable();
-
+            $table->timestamps();
         });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('mentoring_requests');

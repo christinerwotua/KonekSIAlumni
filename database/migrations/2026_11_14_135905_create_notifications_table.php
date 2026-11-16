@@ -8,19 +8,20 @@ return new class extends Migration
 {
     public function up(): void
     {
-        Schema::create('job_referrals', function (Blueprint $table) {
+        Schema::create('notifications', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('alumni_id')->constrained('users');
+            $table->foreignId('user_id')->constrained('users');
+            $table->string('type');
             $table->string('title');
-            $table->string('company');
-            $table->string('location');
-            $table->text('description');
+            $table->text('message');
+            $table->string('link')->nullable();
+            $table->boolean('is_read')->default(false);
             $table->timestamps();
         });
     }
 
     public function down(): void
     {
-        Schema::dropIfExists('job_referrals');
+        Schema::dropIfExists('notifications');
     }
 };
