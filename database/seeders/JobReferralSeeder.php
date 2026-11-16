@@ -15,15 +15,17 @@ class JobReferralSeeder extends Seeder
 
         $title = 'Data Analyst Intern — Demo';
 
-        // 1 lowongan dari alumni1
         DB::table('job_referrals')->updateOrInsert(
             ['alumni_id' => $alumnus->id, 'title' => $title],
             [
-                'company'     => 'PT Contoh Data Nusantara',
-                'location'    => 'Jakarta (Hybrid)',
-                'description' => 'Magang 3 bulan: membersihkan data, membuat dashboard, dan laporan mingguan.',
-                'created_at'  => now(),
-                'updated_at'  => now(),
+                'company'              => 'PT Contoh Data Nusantara',
+                'location'             => 'Jakarta (Hybrid)',
+                'description'          => 'Magang 3 bulan: membersihkan data, membuat dashboard, dan laporan mingguan.',
+                'requirements'         => 'Mahasiswa aktif semester 5+, menguasai SQL dan Excel.',
+                'application_deadline' => '2026-12-31 23:59:00',
+                'status'               => 'open',
+                'created_at'           => now(),
+                'updated_at'           => now(),
             ],
         );
 
@@ -32,10 +34,22 @@ class JobReferralSeeder extends Seeder
             ->where('title', $title)
             ->value('id');
 
-        // 1 lamaran dari mahasiswa1 ke lowongan itu
+        // CV mahasiswa1 dari TalentProfileSeeder (harus dijalankan lebih dulu)
+        $cvId = DB::table('talent_documents')
+            ->join('talent_profiles', 'talent_profiles.id', '=', 'talent_documents.talent_profile_id')
+            ->where('talent_profiles.user_id', $student->id)
+            ->where('talent_documents.type', 'cv')
+            ->value('talent_documents.id');
+
         DB::table('job_applications')->updateOrInsert(
             ['job_referral_id' => $jobId, 'mahasiswa_id' => $student->id],
-            ['created_at' => now(), 'updated_at' => now()],
+            [
+                'cv_id'      => $cvId,
+                'message'    => 'Saya tertarik dengan posisi ini dan sudah terbiasa memakai SQL.',
+                'status'     => 'pending',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
         );
     }
 }

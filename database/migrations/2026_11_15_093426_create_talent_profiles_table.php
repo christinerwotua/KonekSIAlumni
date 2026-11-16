@@ -15,6 +15,7 @@ return new class extends Migration
             $table->string('headline')->nullable();
             $table->text('bio')->nullable();
             $table->text('skills')->nullable();
+            $table->text('experience')->nullable();
             $table->boolean('is_visible')->default(false);
             $table->timestamps();
         });

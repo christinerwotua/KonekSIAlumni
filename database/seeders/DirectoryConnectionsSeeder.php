@@ -34,7 +34,7 @@ class DirectoryConnectionsSeeder extends Seeder
 
         $timestamp = now();
 
-        DB::transaction(function () use ($profiles, $student, $alumniOne, $timestamp) {
+        DB::transaction(function () use ($profiles, $student, $alumniOne, $alumniTwo, $timestamp) {
             foreach ($profiles as [$alumnus, $profile]) {
                 DB::table('alumni_profiles')->updateOrInsert(
                     ['user_id' => $alumnus->id],
@@ -45,10 +45,14 @@ class DirectoryConnectionsSeeder extends Seeder
 
             DB::table('connections')->updateOrInsert(
                 ['mahasiswa_id' => $student->id, 'alumni_id' => $alumniOne->id],
-                fn (bool $exists) => $exists ? [] : [
-                    'created_at' => $timestamp,
-                    'updated_at' => $timestamp,
-                ],
+                fn (bool $exists) => ['status' => 'accepted', 'updated_at' => $timestamp]
+                    + ($exists ? [] : ['created_at' => $timestamp]),
+            );
+
+            DB::table('connections')->updateOrInsert(
+                ['mahasiswa_id' => $student->id, 'alumni_id' => $alumniTwo->id],
+                fn (bool $exists) => ['status' => 'pending', 'updated_at' => $timestamp]
+                    + ($exists ? [] : ['created_at' => $timestamp]),
             );
         });
     }
