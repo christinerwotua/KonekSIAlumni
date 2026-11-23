@@ -1,0 +1,22 @@
+{
+    "name": "KonekSI Alumni",
+    "short_name": "KonekSI",
+    "description": "Jejaring alumni dan mahasiswa Sistem Informasi: direktori, talent pool, job referral, dan mentoring.",
+    "start_url": "/dashboard",
+    "scope": "/",
+    "display": "standalone",
+    "orientation": "portrait-primary",
+    "background_color": "#FBFDFF",
+    "theme_color": "#006481",
+    "lang": "id",
+    "icons": [
+        { "src": "/icons/icon-192.png", "sizes": "192x192", "type": "image/png" },
+        { "src": "/icons/icon-512.png", "sizes": "512x512", "type": "image/png" },
+        { "src": "/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+    ],
+    "shortcuts": [
+        { "name": "Job Referral", "url": "/job-referral", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+        { "name": "Mentoring", "url": "/mentoring", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] },
+        { "name": "Notifikasi", "url": "/notifikasi", "icons": [{ "src": "/icons/icon-192.png", "sizes": "192x192" }] }
+    ]
+}
