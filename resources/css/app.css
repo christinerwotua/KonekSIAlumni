@@ -3,7 +3,18 @@
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
+/* Warna & font dari Figma "HIFI KonekSI Alumni" */
 @theme {
-    --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
+    --font-sans: 'Work Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+
+    --color-primary: #2596BE;      /* tombol utama, link, aksen */
+    --color-primary-dark: #006481; /* logo, nav aktif, tombol login */
+    --color-ink: #191C1D;          /* teks judul */
+    --color-muted: #3E484E;        /* teks biasa / sekunder */
+    --color-page: #FBFDFF;         /* latar halaman */
+    --color-surface: #F8F9FA;      /* navbar */
+    --color-surface-2: #EDEEEF;    /* kartu abu-abu, footer */
+    --color-surface-3: #E7E8E9;    /* chip / tag */
+    --color-line: #BEC8CF;         /* garis & border kartu */
+    --color-line-soft: #D9E3F4;    /* border input & kartu login */
 }
