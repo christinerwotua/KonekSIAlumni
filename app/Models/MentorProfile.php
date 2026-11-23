@@ -8,7 +8,11 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class MentorProfile extends Model
 {
-    protected $fillable = ['alumni_id', 'expertise', 'description'];
+    protected $fillable = [
+        'alumni_id',
+        'expertise',
+        'description',
+    ];
 
     public function alumni(): BelongsTo
     {
@@ -20,9 +24,14 @@ class MentorProfile extends Model
         return $this->hasMany(MentoringRequest::class, 'mentor_id');
     }
 
-    /** Keahlian disimpan sebagai teks dipisah koma, ditampilkan sebagai chip. */
     public function expertiseList(): array
     {
-        return array_values(array_filter(array_map('trim', explode(',', (string) $this->expertise))));
+        return collect(
+            preg_split('/[,;\n]+/', $this->expertise ?? '')
+        )
+            ->map(fn ($skill) => trim($skill))
+            ->filter()
+            ->values()
+            ->all();
     }
 }
