@@ -30,7 +30,31 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'role' => 'mahasiswa',
         ];
+    }
+
+    /** Akun mahasiswa lengkap dengan profil mahasiswa. */
+    public function mahasiswa(): static
+    {
+        return $this->state(['role' => 'mahasiswa'])->afterCreating(function ($user) {
+            $user->mahasiswaProfile()->create([
+                'nim' => (string) fake()->unique()->numerify('50262#####'),
+                'study_program' => 'Sistem Informasi',
+            ]);
+        });
+    }
+
+    /** Akun alumni lengkap dengan profil alumni. */
+    public function alumni(): static
+    {
+        return $this->state(['role' => 'alumni'])->afterCreating(function ($user) {
+            $user->alumniProfile()->create([
+                'graduation_year' => 2020,
+                'company' => 'PT Contoh',
+                'job_title' => 'Data Analyst',
+            ]);
+        });
     }
 
     /**
